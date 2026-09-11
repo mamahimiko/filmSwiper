@@ -1,19 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { MovieInfoType, MovieType } from "@/app/types/types";
-import { motion, useMotionValue, useTransform } from "motion/react";
-import { Dispatch, SetStateAction } from "react";
+import { MovieInfoType, MovieType, SwipeAction } from "@/app/types/types";
+import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 const MovieCard = ({
   movie,
   cards,
   setCards,
   setWatchList,
+  action,
 }: {
   movie: MovieType;
   cards: MovieType[];
   setCards: Dispatch<SetStateAction<MovieType[]>>;
   setWatchList: Dispatch<SetStateAction<MovieInfoType[]>>;
+  action: SwipeAction;
 }) => {
   const movieInfo: MovieInfoType = {
     id: movie.id,
@@ -46,11 +49,45 @@ const MovieCard = ({
     }
   };
 
+  useEffect(() => {
+    if (!action || !isFront || action.movieId !== movie.id) {
+      return;
+    }
+
+    const targetX = action.type === "like" ? 200 : -200;
+
+    const controls = animate(x, targetX, {
+      duration: 0.4,
+    });
+
+    controls.then(() => {
+      if (action.type === "like") {
+        setWatchList((prev) =>
+          prev.some((m) => m.id === movieInfo.id) ? prev : [...prev, movieInfo],
+        );
+      }
+
+      setCards((prev) => prev.filter((card) => card.id !== movie.id));
+    });
+  }, [action, isFront]);
+
+  const boxShadow = useTransform(
+    x,
+    [-150, -50, 0, 50, 150],
+    [
+      "0 0 0 10px #000000",
+      "0 0 0 10px #000000",
+      "0 0 0 0px rgba(0,0,0,0)",
+      "0 0 0 10px #40b1b4",
+      "0 0 0 10px #40b1b4",
+    ],
+  );
+
   return (
     <motion.img
       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
       alt={movie.title}
-      className="w-80 object-cover rounded-sm origin-bottom hover:cursor-grab active:cursor-grabbing"
+      className="w-50 md:w-80 object-cover rounded-sm origin-bottom hover:cursor-grab active:cursor-grabbing"
       style={{
         gridRow: 1,
         gridColumn: 1,
@@ -58,7 +95,9 @@ const MovieCard = ({
         opacity,
         rotate,
         transition: "0.125s transform",
+        boxShadow,
       }}
+      whileHover={{ scale: 1.1 }}
       drag="x"
       dragConstraints={{
         left: 0,

@@ -3,6 +3,7 @@ export type UserType = {
   userName: string;
   password: string;
   genre: string;
+  profileImg: string;
   watchList: MovieInfoType[];
 };
 
@@ -36,3 +37,8 @@ export type GenreType = {
   name: string;
   title: string;
 };
+
+export type SwipeAction = {
+  type: "like" | "dislike";
+  movieId: number;
+} | null;

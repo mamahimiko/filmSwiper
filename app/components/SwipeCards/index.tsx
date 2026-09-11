@@ -2,28 +2,45 @@
 
 import { useEffect, useRef, useState } from "react";
 import MovieCard from "../MovieCard";
-import { MovieType, SwipeCardsType, UserContextType } from "@/app/types/types";
+import {
+  MovieType,
+  SwipeAction,
+  SwipeCardsType,
+  UserContextType,
+} from "@/app/types/types";
 import Link from "next/link";
 import { useUserContext } from "@/app/Context/userContext";
+import SwipeBtn from "../SwipeBtn";
 
 const SwipeCards = ({ movies }: SwipeCardsType) => {
   const { user, setUser } = useUserContext() as UserContextType;
   const [cards, setCards] = useState<MovieType[]>(movies);
   const [todaysWatchList, setTodaysWatchList] = useState<MovieType[]>([]);
+  const [action, setAction] = useState<SwipeAction>(null);
   const hasSynced = useRef(false);
 
   useEffect(() => {
     if (
       cards.length === 0 &&
       todaysWatchList.length > 0 &&
-      !hasSynced.current
+      !hasSynced.current &&
+      user
     ) {
       hasSynced.current = true;
-      setUser({ ...user!, watchList: [...user!.watchList, todaysWatchList] });
+      setUser({
+        ...user,
+        watchList: [
+          ...user.watchList,
+          ...todaysWatchList.filter(
+            (todayMovie) =>
+              !user.watchList.some(
+                (savedMovie) => savedMovie.id === todayMovie.id,
+              ),
+          ),
+        ],
+      });
     }
-  });
-
-  console.log(user);
+  }, [cards.length, todaysWatchList, setUser]);
 
   return (
     <div className="grid place-items-center">
@@ -37,17 +54,19 @@ const SwipeCards = ({ movies }: SwipeCardsType) => {
                 cards={cards}
                 setCards={setCards}
                 setWatchList={setTodaysWatchList}
+                action={action}
               />
             );
           })}
+          <SwipeBtn setAction={setAction} cards={cards} />
         </>
       ) : (
-        <div>
-          <p>Finish!</p>
+        <div className="text-center">
+          <p className="font-bold text-4xl">Finish!</p>
           {todaysWatchList.length ? (
-            <div>
+            <div className="p-4">
               <p>Here are your selected movies!</p>
-              <div className="flex gap-2 ">
+              <div className="flex flex-wrap gap-2 p-4 justify-center">
                 {todaysWatchList.map((movie) => (
                   <Link key={movie.id} href={`/movies/${movie.id}`}>
                     <img

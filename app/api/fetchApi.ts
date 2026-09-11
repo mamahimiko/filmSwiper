@@ -47,6 +47,12 @@ export const fetchMoviesByGenre = async (genreId: number) => {
   }
 };
 
+export const fetchGenreIdbyName = async (genre: string) => {
+  const genreList = await fetchMoviesGenres();
+  const genreId = genreList.find((g) => g.name === genre);
+  return genreId!.id;
+};
+
 export const fetchMovieDetails = async (id: number) => {
   const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
   const options = {
@@ -91,4 +97,38 @@ export const fetchCredits = async (id: number) => {
     console.log(err);
     return [];
   }
+};
+
+export const fetchThumbnails = async () => {
+  const genres = await fetchMoviesGenres();
+
+  const genreMovieCandidates = await Promise.all(
+    genres.map(async (genre: { id: number; name: string }) => {
+      const movies = await fetchMoviesByGenre(genre.id);
+      return {
+        genreId: genre.id,
+        genreName: genre.name,
+        candidates: movies,
+      };
+    }),
+  );
+  const useMovieIds = new Set<number>();
+  const thumbnails = genreMovieCandidates.map(
+    ({ genreId, genreName, candidates }) => {
+      const unusedMovie = candidates.find(
+        (movie: { id: number }) => !useMovieIds.has(movie.id),
+      );
+
+      if (unusedMovie) {
+        useMovieIds.add(unusedMovie.id);
+      }
+      const selectedMovie = unusedMovie ?? candidates[0];
+      return {
+        genreId,
+        genreName,
+        posterPath: selectedMovie?.poster_path,
+      };
+    },
+  );
+  return thumbnails;
 };

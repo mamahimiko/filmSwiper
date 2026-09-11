@@ -30,13 +30,20 @@ export default function Home() {
   }, [user!.genre]);
 
   return (
-    <div className="bg-gray-800 text-mauve-200 h-screen">
-      <p>Hi {user!.userName}</p>
-      <p>Swipe todays your favourite {user!.genre} movies!</p>
-      <SwipeCards
-        key={movies.map((movie) => movie.id).join(",")}
-        movies={movies}
-      />
+    <div className=" text-mauve-200 flex flex-col h-full p-4">
+      <div className="flex flex-col justify-center items-center pt-8 lg:pt-20">
+        <p className="text-lg">Hi, {user!.userName}</p>
+        <h2 className="text-3xl font-bold text-center">
+          Discover today&apos;s {user!.genre} movies you&apos;ll love, <br />
+          one swipe at a time!
+        </h2>
+      </div>
+      <div className="grow flex items-center justify-center pt-10 lg:pt-5">
+        <SwipeCards
+          key={movies.map((movie) => movie.id).join(",")}
+          movies={movies}
+        />
+      </div>
     </div>
   );
 }

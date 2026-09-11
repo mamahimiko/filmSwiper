@@ -8,14 +8,14 @@ import { UserContextType } from "@/app/types/types";
 const LoginWrapper = ({ children }: { children: ReactNode }) => {
   const { user } = useUserContext() as UserContextType;
   return (
-    <div className="grow">
+    <div className="grow flex flex-col bg-linear-to-t from-amber-400 to-pink-600">
       {user ? (
         <>
           <Navigation />
-          <div>{children}</div>
+          <div className="grow flex flex-col">{children}</div>
         </>
       ) : (
-        <div className="flex justify-center items-center p-20">
+        <div className="flex justify-center items-center p-6 grow bg-linear-to-t from-amber-400 to-pink-600">
           <Login />
         </div>
       )}

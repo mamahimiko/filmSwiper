@@ -3,3 +3,7 @@
 * {
   box-sizing: border-box;
 }
+
+@theme {
+  --font-montserrat: var(--font-montserrat);
+}

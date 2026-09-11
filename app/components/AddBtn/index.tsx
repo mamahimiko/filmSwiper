@@ -35,7 +35,7 @@ const AddButton = ({ movieInfo }: AddButtonProps) => {
     <>
       <button
         onClick={handleClick}
-        className={`${alreadySaved ? "bg-gray-500 hover:bg-gray-600" : "bg-red-500 hover:bg-red-400"} text-white p-4 rounded-2xl w-60 md:w-70 cursor-pointer`}
+        className={`${alreadySaved ? "bg-gray-500 hover:bg-gray-600" : "bg-violet-600 hover:bg-violet-700"} text-white p-4 rounded-2xl w-60 md:w-70 cursor-pointer font-bold shadow-md`}
       >
         <div className="flex justify-center gap-3">
           {alreadySaved ? (

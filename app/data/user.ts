@@ -6,6 +6,7 @@ export const userData: UserType[] = [
     userName: "mahoa",
     password: "1111",
     genre: "Action",
+    profileImg: "/profile-woman.jpg",
     watchList: [],
   },
   {
@@ -13,6 +14,7 @@ export const userData: UserType[] = [
     userName: "mahoc",
     password: "2222",
     genre: "Comedy",
+    profileImg: "/profile-woman.jpg",
     watchList: [],
   },
   {
@@ -20,6 +22,7 @@ export const userData: UserType[] = [
     userName: "mahoh",
     password: "3333",
     genre: "Horror",
+    profileImg: "/profile-woman.jpg",
     watchList: [],
   },
   {
@@ -27,6 +30,7 @@ export const userData: UserType[] = [
     userName: "mahor",
     password: "4444",
     genre: "Romance",
+    profileImg: "/profile-man.jpg",
     watchList: [],
   },
   {
@@ -34,6 +38,7 @@ export const userData: UserType[] = [
     userName: "mahos",
     password: "5555",
     genre: "Science Fiction",
+    profileImg: "/profile-man.jpg",
     watchList: [],
   },
   {
@@ -41,6 +46,7 @@ export const userData: UserType[] = [
     userName: "mahoani",
     password: "6666",
     genre: "Animation",
+    profileImg: "/profile-man.jpg",
     watchList: [],
   },
 ];

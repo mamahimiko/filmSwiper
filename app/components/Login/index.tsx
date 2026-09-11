@@ -7,6 +7,7 @@ const Login = () => {
   const { setUser } = useUserContext() as UserContextType;
   const [username, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isFailed, setIsFailed] = useState<boolean>();
 
   const handleUserName = (e: { target: { value: SetStateAction<string> } }) => {
     setUserName(e.target.value);
@@ -21,11 +22,13 @@ const Login = () => {
     const loggedInUser = userData.find(
       (item) => item.userName === username && item.password === password,
     );
-    if (loggedInUser) setUser(loggedInUser);
+    if (loggedInUser) (setUser(loggedInUser), setIsFailed(true));
+
+    if (!loggedInUser) setIsFailed(false);
   };
 
   return (
-    <form className="flex flex-col w-100 border rounded-md border-gray-300 p-5">
+    <form className="flex flex-col w-100 border rounded-md border-gray-300 p-5 bg-white text-gray-800">
       <div className="text-center p-4">
         <h2 className="text-2xl font-bold">User Login</h2>
       </div>
@@ -37,7 +40,7 @@ const Login = () => {
             placeholder="Name"
             onChange={handleUserName}
             value={username}
-            className="field border rounded-sm border-gray-300 h-8"
+            className="field border rounded-sm border-gray-300 h-8 p-2"
           ></input>
         </div>
         <div className="flex flex-col">
@@ -47,7 +50,7 @@ const Login = () => {
             placeholder="Password"
             onChange={handlePassword}
             value={password}
-            className="field border rounded-sm border-gray-300 h-8"
+            className="field border rounded-sm border-gray-300 h-8 p-2"
           ></input>
         </div>
       </div>
@@ -58,6 +61,11 @@ const Login = () => {
         >
           Log in
         </button>
+        {isFailed === false && (
+          <p className="text-red-600 pt-2">
+            Invalid username or password. Please try again.
+          </p>
+        )}
       </div>
     </form>
   );

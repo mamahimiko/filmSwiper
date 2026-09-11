@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <header>
-      <h1 className="text-3xl">Movie Tinder</h1>
+    <header className="p-4 text-violet-700 font-bold bg-amber-50">
+      <h1 className="text-4xl text-center tracking-tighter">Movie Tinder</h1>
     </header>
   );
 };

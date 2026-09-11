@@ -30,19 +30,21 @@ const MoviePage = async ({ params }: { params: { id: number } }) => {
           <img
             src={`https://image.tmdb.org/t/p/original/${movieDetail.poster_path}`}
             alt={movieDetail.title}
-            className="w-60 md:w-70 rounded-2xl"
+            className="w-60 md:w-70 rounded-2xl "
           />
           <div className="pt-3 lg:p-6">
             <AddButton movieInfo={movieInfo} />
           </div>
         </div>
         <div className="flex flex-col gap-5 p-6 md:w-120 lg:w-150">
-          <h2 className="text-4xl text-center">{movieDetail.title}</h2>
+          <h2 className="text-4xl text-center font-bold">
+            {movieDetail.title}
+          </h2>
           <p className="text-center">Directed by {director.name}</p>
           <div className="flex gap-2 justify-center lg:justify-start">
             {movieDetail?.genres.map((genre: GenreType, index: number) => (
-              <div key={index} className="bg-gray-300 rounded-2xl p-1.5">
-                <p className="">{genre.name}</p>
+              <div key={index} className="bg-white rounded-2xl px-2 py-1.5 ">
+                <p className="text-teal-500 font-bold">{genre.name}</p>
               </div>
             ))}
           </div>
@@ -58,7 +60,7 @@ const MoviePage = async ({ params }: { params: { id: number } }) => {
                   className="grid grid-cols-[1fr_auto_1fr] items-center gap-4"
                 >
                   <p>{cast.name}</p>
-                  <div className="w-16 border-t border-dotted border-gray-400" />
+                  <div className="w-16 border-t border-dotted border-gray-100" />
                   <p>{cast.character}</p>
                 </div>
               ))}
