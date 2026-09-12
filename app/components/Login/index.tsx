@@ -22,9 +22,11 @@ const Login = () => {
     const loggedInUser = userData.find(
       (item) => item.userName === username && item.password === password,
     );
-    if (loggedInUser) (setUser(loggedInUser), setIsFailed(true));
-
-    if (!loggedInUser) setIsFailed(false);
+    if (loggedInUser) {
+      (setUser(loggedInUser), setIsFailed(true));
+    } else {
+      setIsFailed(false);
+    }
   };
 
   return (

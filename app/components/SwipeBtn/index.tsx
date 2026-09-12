@@ -25,13 +25,13 @@ const SwipeBtn = ({ setAction, cards }: SwipeBtnProps) => {
       <div className="flex gap-20">
         <button
           onClick={handleDisLike}
-          className="bg-gray-700 hover:bg-gray-800 rounded-full p-6 border-none text-2xl"
+          className="bg-gray-700 hover:bg-gray-800 rounded-full p-6 border-none text-2xl cursor-pointer"
         >
           <FaX />
         </button>
         <button
           onClick={handleLike}
-          className="bg-teal-500 hover:bg-teal-600 rounded-full p-6 text-2xl"
+          className="bg-teal-500 hover:bg-teal-600 rounded-full p-6 text-2xl cursor-pointer"
         >
           <FaHeart />
         </button>

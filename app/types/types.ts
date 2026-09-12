@@ -29,7 +29,7 @@ export type SwipeCardsType = {
 
 export type UserContextType = {
   user: UserType | null;
-  setUser: (user: UserType) => void;
+  setUser: (user: UserType | null) => void;
 };
 
 export type GenreType = {

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Logout from "../Logout";
 
 const Navigation = () => {
   return (
@@ -13,7 +12,6 @@ const Navigation = () => {
       <Link href="/watch-list" className=" hover:font-bold">
         Your Watch List
       </Link>
-      <Logout />
     </div>
   );
 };

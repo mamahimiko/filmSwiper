@@ -31,9 +31,9 @@ export default function Home() {
 
   return (
     <div className=" text-mauve-200 flex flex-col h-full p-4">
-      <div className="flex flex-col justify-center items-center pt-8 lg:pt-20">
+      <div className="flex flex-col justify-center items-center lg:pt-20">
         <p className="text-lg">Hi, {user!.userName}</p>
-        <h2 className="text-3xl font-bold text-center">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
           Discover today&apos;s {user!.genre} movies you&apos;ll love, <br />
           one swipe at a time!
         </h2>
