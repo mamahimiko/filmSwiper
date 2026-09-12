@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { useUserContext } from "@/app/Context/userContext";
 import SwipeBtn from "../SwipeBtn";
+import { motion } from "motion/react";
 
 const SwipeCards = ({ movies }: SwipeCardsType) => {
   const { user, setUser } = useUserContext() as UserContextType;
@@ -40,7 +41,22 @@ const SwipeCards = ({ movies }: SwipeCardsType) => {
         ],
       });
     }
-  }, [cards.length, todaysWatchList, setUser]);
+  }, [cards.length, todaysWatchList, setUser, user]);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
 
   return (
     <div className="grid place-items-center">
@@ -65,20 +81,27 @@ const SwipeCards = ({ movies }: SwipeCardsType) => {
           <p className="font-bold text-4xl">Finish!</p>
           {todaysWatchList.length ? (
             <div className="p-4">
-              <p>Here are your selected movies!</p>
-              <div className="flex flex-wrap gap-2 p-4 justify-center">
+              <p>Here are your picked movies!</p>
+              <motion.ul
+                variants={container}
+                initial="hidden"
+                animate="show"
+                className="flex flex-wrap gap-2 p-4 justify-center"
+              >
                 {todaysWatchList.map((movie) => (
-                  <Link key={movie.id} href={`/movies/${movie.id}`}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                      className="w-70"
-                    />
-                  </Link>
+                  <motion.li key={movie.id} variants={item}>
+                    <Link href={`/movies/${movie.id}`}>
+                      <img
+                        src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                        className="w-70"
+                      />
+                    </Link>
+                  </motion.li>
                 ))}
-              </div>
+              </motion.ul>
             </div>
           ) : (
-            <p>Hmm... You do noy like movie?</p>
+            <p>Hmm... You do not like movie?</p>
           )}
         </div>
       )}

@@ -35,7 +35,7 @@ export default function Home() {
         <p className="text-lg">Hi, {user!.userName}</p>
         <h2 className="text-2xl md:text-3xl font-bold text-center">
           Discover today&apos;s {user!.genre} movies you&apos;ll love, <br />
-          one swipe at a time!
+          one Flick at a time!
         </h2>
       </div>
       <div className="grow flex items-center justify-center pt-10 lg:pt-5">
