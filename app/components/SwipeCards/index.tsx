@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import MovieCard from "../MovieCard";
 import {
+  MovieInfoType,
   MovieType,
   SwipeAction,
   SwipeCardsType,
@@ -16,7 +17,7 @@ import { motion } from "motion/react";
 const SwipeCards = ({ movies }: SwipeCardsType) => {
   const { user, setUser } = useUserContext() as UserContextType;
   const [cards, setCards] = useState<MovieType[]>(movies);
-  const [todaysWatchList, setTodaysWatchList] = useState<MovieType[]>([]);
+  const [todaysWatchList, setTodaysWatchList] = useState<MovieInfoType[]>([]);
   const [action, setAction] = useState<SwipeAction>(null);
   const hasSynced = useRef(false);
 

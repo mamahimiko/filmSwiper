@@ -17,7 +17,7 @@ const SwipeBtn = ({ setAction, cards }: SwipeBtnProps) => {
   const handleDisLike = () => {
     if (cards.length === 0) return;
     const movie = cards[cards.length - 1];
-    setAction({ type: "disLike", movieId: movie.id });
+    setAction({ type: "dislike", movieId: movie.id });
   };
 
   return (

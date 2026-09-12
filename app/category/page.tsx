@@ -6,7 +6,7 @@ const CategoriesPage = async () => {
 
   return (
     <div className="p-15">
-      <div className="p-10">
+      <div className="pb-10">
         <h2 className="text-3xl text-center font-bold text-white">Category</h2>
       </div>
       <div className="grid grid-col-2 md:grid-cols-3 gap-4">
