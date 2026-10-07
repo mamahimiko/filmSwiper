@@ -7,13 +7,15 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 
 const MovieCard = ({
   movie,
-  cards,
+  isFront,
+  zIndex,
   setCards,
   setWatchList,
   action,
 }: {
   movie: MovieType;
-  cards: MovieType[];
+  isFront: boolean;
+  zIndex: number;
   setCards: Dispatch<SetStateAction<MovieType[]>>;
   setWatchList: Dispatch<SetStateAction<MovieInfoType[]>>;
   action: SwipeAction;
@@ -26,15 +28,17 @@ const MovieCard = ({
 
   const x = useMotionValue(0);
 
-  const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
+  const opacity = useTransform(x, [-200, -100, 0, 100, 200], [0, 1, 1, 1, 0]);
   const rotateRaw = useTransform(x, [-150, 150], [-15, 15]);
 
-  const isFront = movieInfo.id === cards[cards.length - 1].id;
-
-  const rotate = useTransform(() => {
-    const offset = isFront ? 0 : movieInfo.id % 2 ? 6 : -6;
-    return `${rotateRaw.get() + offset}deg`;
-  });
+  const offset = useMotionValue(isFront ? 0 : movie.id % 2 ? 6 : -6);
+  useEffect(() => {
+    offset.set(isFront ? 0 : movie.id % 2 ? 6 : -6);
+  }, [isFront]);
+  const rotate = useTransform(
+    [rotateRaw, offset],
+    ([r, o]: number[]) => `${r + o}deg`,
+  );
 
   const handleDragEnd = () => {
     const liked = x.get() > 70;
@@ -54,7 +58,7 @@ const MovieCard = ({
       return;
     }
 
-    const targetX = action.type === "like" ? 200 : -200;
+    const targetX = action.type === "like" ? 300 : -300;
 
     const controls = animate(x, targetX, {
       duration: 0.4,
@@ -69,6 +73,7 @@ const MovieCard = ({
 
       setCards((prev) => prev.filter((card) => card.id !== movie.id));
     });
+    return () => controls.stop();
   }, [action, isFront]);
 
   const boxShadow = useTransform(
@@ -83,6 +88,8 @@ const MovieCard = ({
     ],
   );
 
+  console.log(action);
+
   return (
     <motion.img
       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
@@ -91,10 +98,10 @@ const MovieCard = ({
       style={{
         gridRow: 1,
         gridColumn: 1,
+        zIndex,
         x,
         opacity,
         rotate,
-        transition: "0.125s transform",
         boxShadow,
       }}
       whileHover={{ scale: 1.1 }}

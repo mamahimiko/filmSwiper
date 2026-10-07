@@ -16,7 +16,9 @@ import { motion } from "motion/react";
 
 const SwipeCards = ({ movies }: SwipeCardsType) => {
   const { user, setUser } = useUserContext() as UserContextType;
-  const [cards, setCards] = useState<MovieType[]>(movies);
+  const [cards, setCards] = useState<MovieType[]>(() =>
+    movies.filter((m, i, arr) => arr.findIndex((x) => x.id === m.id) === i),
+  );
   const [todaysWatchList, setTodaysWatchList] = useState<MovieInfoType[]>([]);
   const [action, setAction] = useState<SwipeAction>(null);
   const hasSynced = useRef(false);
@@ -63,15 +65,17 @@ const SwipeCards = ({ movies }: SwipeCardsType) => {
     <div className="grid place-items-center">
       {cards.length ? (
         <>
-          {cards.map((movie) => {
+          {cards.map((movie, index) => {
+            const isFront = index === cards.length - 1;
             return (
               <MovieCard
                 key={movie.id}
                 movie={movie}
-                cards={cards}
+                zIndex={index}
+                isFront={isFront}
                 setCards={setCards}
                 setWatchList={setTodaysWatchList}
-                action={action}
+                action={isFront ? action : null}
               />
             );
           })}
