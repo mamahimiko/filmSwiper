@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <form className="flex flex-col w-100 border rounded-md border-gray-300 p-5 bg-white text-gray-800">
+    <form className="flex flex-col w-85 lg:w-100 border rounded-md border-gray-300 p-5 bg-white text-gray-800">
       <div className="text-center p-4">
         <h2 className="text-2xl font-bold">User Login</h2>
       </div>
@@ -39,7 +39,7 @@ const Login = () => {
           <label>User Name</label>
           <input
             id="username"
-            placeholder="Name"
+            placeholder="Name (ex.mahoa)"
             onChange={handleUserName}
             value={username}
             className="field border rounded-sm border-gray-300 h-8 p-2"
@@ -49,7 +49,7 @@ const Login = () => {
           <label>Password</label>
           <input
             id="username"
-            placeholder="Password"
+            placeholder="Password (ex.1111)"
             onChange={handlePassword}
             value={password}
             className="field border rounded-sm border-gray-300 h-8 p-2"

@@ -5,6 +5,7 @@ import Login from ".";
 import Navigation from "../Navigation";
 import { UserContextType } from "@/app/types/types";
 import Logout from "../Logout";
+import { userData } from "@/app/data/user";
 
 const LoginWrapper = ({ children }: { children: ReactNode }) => {
   const { user } = useUserContext() as UserContextType;
@@ -21,7 +22,7 @@ const LoginWrapper = ({ children }: { children: ReactNode }) => {
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center p-6 grow bg-linear-to-t from-amber-400 to-pink-600">
+        <div className="flex flex-col justify-center items-center p-6 grow bg-linear-to-t from-amber-400 to-pink-600">
           <Login />
         </div>
       )}
