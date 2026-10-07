@@ -5,7 +5,6 @@ import Login from ".";
 import Navigation from "../Navigation";
 import { UserContextType } from "@/app/types/types";
 import Logout from "../Logout";
-import { userData } from "@/app/data/user";
 
 const LoginWrapper = ({ children }: { children: ReactNode }) => {
   const { user } = useUserContext() as UserContextType;
