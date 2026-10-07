@@ -29,8 +29,6 @@ const AddButton = ({ movieInfo }: AddButtonProps) => {
     }
   };
 
-  console.log(user);
-
   return (
     <>
       <button

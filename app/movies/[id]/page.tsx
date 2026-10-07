@@ -37,13 +37,13 @@ const MoviePage = async ({ params }: { params: { id: number } }) => {
           </div>
         </div>
         <div className="flex flex-col gap-5 p-6 md:w-120 lg:w-150">
-          <h2 className="text-4xl text-center font-bold">
+          <h2 className="text-4xl font-bold text-center">
             {movieDetail.title}
           </h2>
           <p className="text-center">Directed by {director.name}</p>
-          <div className="flex gap-2 justify-center lg:justify-start">
+          <div className="flex gap-2 lg:justify-start w-full flex-wrap">
             {movieDetail?.genres.map((genre: GenreType, index: number) => (
-              <div key={index} className="bg-white rounded-2xl px-2 py-1.5 ">
+              <div key={index} className="bg-gray-100 rounded-2xl px-2 py-1.5 ">
                 <p className="text-teal-500 font-bold">{genre.name}</p>
               </div>
             ))}
@@ -54,16 +54,19 @@ const MoviePage = async ({ params }: { params: { id: number } }) => {
           <div>
             <h3 className="font-bold">Cast</h3>
             <div className="pt-4">
-              {castList?.map((cast) => (
-                <div
-                  key={cast.id}
-                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-4"
-                >
-                  <p>{cast.name}</p>
-                  <div className="w-16 border-t border-dotted border-gray-100" />
-                  <p>{cast.character}</p>
-                </div>
-              ))}
+              {castList
+                ?.filter((cast) => cast !== undefined)
+                .map((cast) => (
+                  <div
+                    key={cast.id}
+                    className="grid lg:grid-cols-[1fr_auto_1fr] items-center lg:gap-4"
+                  >
+                    <p>{cast.name}</p>
+                    <div className="w-16 border-t border-dotted border-gray-100 hidden lg:block " />
+                    <p>{cast.character}</p>
+                    <div className="w-full border-t border-dotted border-gray-100 pb-2 lg:hidden" />
+                  </div>
+                ))}
             </div>
           </div>
         </div>
